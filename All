@@ -1102,6 +1102,176 @@ public class Pathfinding {
 
 
 
+//Family Tree
+
+:- initialization(main).
+
+% Defining males and females
+male(aditya).
+male(shirish).
+male(mansaram).
+male(sachin).
+male(ragho).
+male(yashwant).
+male(ananda).
+male(budha).
+male(vaibhav).
+male(naval).
+male(sitaram).
+male(lalit).
+male(abhijit).
+male(ashutosh).
+
+female(vaishali).
+female(manisha).
+female(neha).
+female(anjana).
+female(yogita).
+female(pramila).
+female(swati).
+female(sharvi).
+female(tanmayee).
+
+% Defining parent-child relationships
+parent(yashwant, ragho).
+parent(ragho, mansaram).
+parent(ragho, budha).
+
+parent(mansaram, shirish).
+parent(mansaram, sachin).
+parent(mansaram, swati).
+parent(anjana, shirish).
+parent(anjana, sachin).
+parent(anjana, swati).
+
+parent(budha, ananda).
+
+parent(shirish, aditya).
+parent(vaishali, aditya).
+
+parent(sachin, neha).
+parent(manisha, neha).
+
+parent(naval, vaishali).
+parent(pramila, vaishali).
+parent(naval, vaibhav).
+parent(pramila, vaibhav).
+parent(naval, yogita).
+parent(pramila, yogita).
+
+parent(swati, sharvi).
+parent(ashutosh, sharvi).
+
+parent(yogita, abhijit).
+parent(lalit, abhijit).
+parent(yogita, tanmayee).
+parent(lalit, tanmayee).
+
+% Basic family relationships
+father(X, Y) :- male(X), parent(X, Y).
+mother(X, Y) :- female(X), parent(X, Y).
+child(X, Y) :- parent(Y, X).
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+brother(X, Y) :- male(X), sibling(X, Y).
+sister(X, Y) :- female(X), sibling(X, Y).
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+grandfather(X, Y) :- male(X), grandparent(X, Y).
+grandmother(X, Y) :- female(X), grandparent(X, Y).
+wife(X, Y) :- female(X), male(Y), parent(X, Z), parent(Y, Z).
+husband(X, Y) :- male(X), female(Y), parent(X, Z), parent(Y, Z).
+niece(X, Y) :- female(X), sibling(Y, Z), parent(Z, X).
+nephew(X, Y) :- male(X), sibling(Y, Z), parent(Z, X).
+father_in_law(X, Y) :- male(X), wife(W, Y), parent(X, W).
+father_in_law(X, Y) :- male(X), husband(W, Y), parent(X, W).
+mother_in_law(X, Y) :- female(X), wife(W, Y), parent(X, W).
+mother_in_law(X, Y) :- female(X), husband(W, Y), parent(X, W).
+cousin(X, Y) :-  parent(A, X), parent(B, Y), sibling(A, B).
+maternal_uncle(X, Y) :-  male(X), parent(Z, Y), sister(Z, X).
+maternal_aunt(X, Y) :- female(X), parent(Z, Y), sister(X, Z).
+paternal_uncle(X, Y) :- male(X), parent(Z, Y), brother(X, Z).
+paternal_aunt(X, Y) :- female(X), parent(Z, Y), sister(X, Z).
+son_in_law(X, Y) :- male(X), wife(W, X), parent(Y, W).
+daughter_in_law(X, Y) :- female(X), husband(W, X), parent(Y, W).
+great_grandfather(X, Y) :- male(X), parent(X, Z), grandparent(Z, Y).
+great_great_grandfather(X, Y) :- male(X), parent(X, Z), grandparent(Z, W), parent(W, Y).
+son(X, Y) :- male(X), child(X, Y).
+daughter(X, Y) :- female(X), child(X, Y).
+
+% Helper predicates for finding relationships
+find_parents(Person, Parents) :- 
+    setof(P, parent(P, Person), Parents).
+
+find_grandparents(Person, Grandparents) :- 
+    setof(G, grandparent(G, Person), Grandparents).
+
+find_cousins(Person, Cousins) :- 
+    setof(C, cousin(Person, C), Cousins).
+
+find_relation(Person1, Person2, Relation) :- 
+    ( parent(Person1, Person2) -> Relation = 'parent'  
+    ; parent(Person2, Person1) -> Relation = 'child'
+    ; grandparent(Person1, Person2) -> Relation = 'grandparent'
+    ; grandparent(Person2, Person1) -> Relation = 'grandchild'
+    ; great_grandfather(Person1, Person2) -> Relation = 'great-grandfather'
+    ; great_great_grandfather(Person1, Person2) -> Relation = 'great-great-grandfather'
+    ; great_grandfather(Person2, Person1) -> Relation = 'great-grandchild'
+    ; great_great_grandfather(Person2, Person1) -> Relation = 'great-great-grandchild'
+    ; cousin(Person1, Person2) -> Relation = 'cousin'
+    ; sibling(Person1, Person2) -> Relation = 'sibling'
+    ; brother(Person1, Person2) -> Relation = 'brother'
+    ; sister(Person1, Person2) -> Relation = 'sister'
+    ; niece(Person1, Person2) -> Relation = 'niece'
+    ; nephew(Person1, Person2) -> Relation = 'nephew'
+    ; maternal_uncle(Person1, Person2) -> Relation = 'maternal uncle'
+    ; paternal_uncle(Person1, Person2) -> Relation = 'paternal uncle'
+    ; maternal_aunt(Person1, Person2) -> Relation = 'maternal aunt'
+    ; paternal_aunt(Person1, Person2) -> Relation = 'paternal aunt'
+    ; son_in_law(Person1, Person2) -> Relation = 'son-in-law'
+    ; daughter_in_law(Person1, Person2) -> Relation = 'daughter-in-law'
+    ; father_in_law(Person1, Person2) -> Relation = 'father-in-law'
+    ; mother_in_law(Person1, Person2) -> Relation = 'mother-in-law'
+    ; Relation = 'no direct relation'
+    ).
+
+% Main predicate with predefined queries
+main :-
+    % Header
+    write('Family Relations Query Results'), nl, nl,
+    
+    % Query 1: Find Aditya's parents
+    write('1. Finding Aditya\'s parents:'), nl,
+    find_parents(aditya, Parents),
+    write('   Parents: '), write(Parents), nl, nl,
+    
+    % Query 2: Find Aditya's grandparents
+    write('2. Finding Aditya\'s grandparents:'), nl,
+    find_grandparents(aditya, Grandparents),
+    write('   Grandparents: '), write(Grandparents), nl, nl,
+    
+    % Query 3: Find Neha's cousins
+    write('3. Finding Neha\'s cousins:'), nl,
+    find_cousins(neha, Cousins),
+    write('   Cousins: '), write(Cousins), nl, nl,
+    
+    % Query 4: Find relation between Aditya and Yashwant
+    write('4. Finding relation between Aditya and Yashwant:'), nl,
+    find_relation(yashwant, aditya, Relation),
+    write('   Yashwant is Aditya\'s '), write(Relation), nl, nl,
+    
+    % Query 5: Check if Vaishali is mother of Aditya
+    write('5. Checking if Vaishali is mother of Aditya:'), nl,
+    (mother(vaishali, aditya) -> 
+        write('   Yes, Vaishali is Aditya\'s mother')
+    ;   write('   No, Vaishali is not Aditya\'s mother')
+    ), nl.
+
+
+
+
+
+
+
+
 
 
 
