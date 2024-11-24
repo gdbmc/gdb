@@ -1,4 +1,5 @@
 // TTT Non AI
+
 import java.util.Scanner;
 
 public class Tut_1_tictactoe_nonAI {
@@ -246,7 +247,16 @@ public class Tut_1_tictactoe_nonAI {
     }
 }
 
+
+
+
+
+
+
+
+
 // TTT AI
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -405,6 +415,17 @@ public class TicTacToeAI {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
 // BFS DFS
 import java.util.*;
 
@@ -469,6 +490,18 @@ public class GraphTraversal {
 }
 
 //
+
+
+
+
+
+
+
+
+
+
+
+
 
 //IDDFS
 import java.util.Scanner;
@@ -548,6 +581,18 @@ public class IterativeDeepeningDFS  {
         iddfs.IDDFS(startVertex, targetVertex);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 //CSP
 public class CocaCola {
 
@@ -638,7 +683,19 @@ public class CocaCola {
         solveCryptarithmetic();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 //Best First Search
+
 import java.util.*;
 
 public class BestFirstSearchMatrix {
@@ -741,7 +798,21 @@ public class BestFirstSearchMatrix {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 // A-Star
+
+
 import java.util.*;
 
 public class AStarSearchMatrix {
@@ -875,7 +946,18 @@ public class AStarSearchMatrix {
         graph.aStarSearch(source, target, heuristic);
     }
 }
+
+
+
+
+
+
+
+
+
+
 //AO-Star
+
 import java.util.*;
 
 class PathConditions {
