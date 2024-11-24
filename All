@@ -1,0 +1,1025 @@
+// TTT Non AI
+import java.util.Scanner;
+
+public class Tut_1_tictactoe_nonAI {
+    static int brk = 0;
+    static char[] row1 = { '_', '_', '_' };
+    static char[] row2 = { '_', '_', '_' };
+    static char[] row3 = { '_', '_', '_' };
+
+    static int trywin(char[] chars) {
+        if (chars[0] == 'X' && chars[1] == 'X' && chars[2] == 'X') {
+            System.out.println("You win!");
+            brk = 1;
+            return 1;
+        }
+        if (chars[0] == 'O' && chars[1] == 'O' && chars[2] == 'O') {
+            System.out.println("Computer wins!");
+            brk = 1;
+            return 1;
+        }
+        if (chars[0] == 'O' && chars[1] == 'O' && chars[2] == '_') {
+            chars[2] = 'O';
+            System.out.println("Computer wins!");
+            brk=1;
+            return 1;
+        }
+        if (chars[0] == 'O' && chars[1] == '_' && chars[2] == 'O') {
+            chars[1] = 'O';
+            System.out.println("Computer wins!");
+            brk=1;
+            return 1;
+        }
+        if (chars[0] == '_' && chars[1] == 'O' && chars[2] == 'O') {
+            chars[0] = 'O';
+            System.out.println("Computer wins!");
+            brk=1;
+            return 1;
+        }
+        return 0;
+    }
+
+    static void analyse() {
+        int played = 0;
+        int win = 0;
+        char[] chars = new char[3];
+
+        // row 1
+        chars[0] = row1[0];
+        chars[1] = row1[1];
+        chars[2] = row1[2];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[0] = chars[0];
+            row1[1] = chars[1];
+            row1[2] = chars[2];
+            return;
+        }
+
+        // row 2
+        chars[0] = row2[0];
+        chars[1] = row2[1];
+        chars[2] = row2[2];
+        win = trywin(chars);
+        if (win == 1) {
+            row2[0] = chars[0];
+            row2[1] = chars[1];
+            row2[2] = chars[2];
+            return;
+        }
+
+        // row 3
+        chars[0] = row3[0];
+        chars[1] = row3[1];
+        chars[2] = row3[2];
+        win = trywin(chars);
+        if (win == 1) {
+            row3[0] = chars[0];
+            row3[1] = chars[1];
+            row3[2] = chars[2];
+            return;
+        }
+
+        // col 1
+        chars[0] = row1[0];
+        chars[1] = row2[0];
+        chars[2] = row3[0];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[0] = chars[0];
+            row2[0] = chars[1];
+            row3[0] = chars[2];
+            return;
+        }
+
+        // col 2
+        chars[0] = row1[1];
+        chars[1] = row2[1];
+        chars[2] = row3[1];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[1] = chars[0];
+            row2[1] = chars[1];
+            row3[1] = chars[2];
+            return;
+        }
+
+        // col 3
+        chars[0] = row1[2];
+        chars[1] = row2[2];
+        chars[2] = row3[2];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[2] = chars[0];
+            row2[2] = chars[1];
+            row3[2] = chars[2];
+            return;
+        }
+
+        // diagonal 1
+        chars[0] = row1[0];
+        chars[1] = row2[1];
+        chars[2] = row3[2];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[0] = chars[0];
+            row2[1] = chars[1];
+            row3[2] = chars[2];
+            return;
+        }
+
+        // diagonal 2
+        chars[0] = row1[2];
+        chars[1] = row2[1];
+        chars[2] = row3[0];
+        win = trywin(chars);
+        if (win == 1) {
+            row1[2] = chars[0];
+            row2[1] = chars[1];
+            row3[0] = chars[2];
+            return;
+        }
+
+        if (played == 0 && win == 0) {
+            if (row2[1] == '_' && row2[1] != 'X') {
+                row2[1] = 'O';          //center
+            } else if (row1[0] == '_' && row1[0] != 'X') {
+                row1[0] = 'O';          //top left corner
+            } else if (row3[2] == '_' && row3[2] != 'X') {
+                row3[2] = 'O';          //bottom right corner
+            } else if (row1[2] == '_' && row1[2] != 'X') {
+                row1[2] = 'O';           //top right corner
+            } else if (row3[0] == '_' && row3[0] != 'X') {
+                row3[0] = 'O';           //bottom left corner
+            } else if (row3[1] == '_' && row3[1] != 'X') {
+                row3[1] = 'O';           // bottom center
+            } else if (row1[1] == '_' && row1[1] != 'X') {
+                row1[1] = 'O';           //top center
+            } else if (row2[0] == '_' && row2[0] != 'X') {
+                row2[0] = 'O';           // middle left
+            } else if (row2[2] == '_' && row2[2] != 'X') {
+                row2[2] = 'O';           // middle right
+            }
+        }
+    }
+
+    static void display() {
+        for (char a : row1) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (char a : row2) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (char a : row3) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("----Start----");
+        System.out.println("Play your move by entering numbers between 1 to 9\n1 -> top left corner and 9 -> bottom right corner");
+
+        System.out.println("1 2 3");
+        System.out.println("4 5 6");
+        System.out.println("7 8 9");
+
+        int moveCount = 0;
+
+        System.out.print("Do you want to play first [y/n]? ");
+        char playFirst = scanner.next().charAt(0);
+
+        if (playFirst == 'n') {
+            System.out.println("Computer's move ....");
+            analyse();
+            display();
+            moveCount++;
+        }
+
+        while (moveCount < 9) {
+            // player's move
+            System.out.println("Play move ...");
+            int move = scanner.nextInt();
+
+            if (move <= 3) {
+                row1[move - 1] = 'X';
+            } else if (3 < move && move < 7) {
+                if (move == 6) {
+                    row2[2] = 'X';
+                } else {
+                    move = move % 3;
+                    row2[move - 1] = 'X';
+                }
+            } else {
+                if (move == 9) {
+                    row3[2] = 'X';
+                } else {
+                    move = move % 3;
+                    row3[move - 1] = 'X';
+                }
+            }
+
+            moveCount++;
+            if (brk == 1) {
+                break;
+            }
+            display();
+            if (moveCount == 9) {
+                break;
+            }
+
+            System.out.println("Computer's move ....");
+            analyse();
+            display();
+            moveCount++;
+            if (brk == 1) {
+                break;
+            }
+        }
+        if (moveCount == 9) {
+            System.out.println("It's a tie!");
+        }
+    }
+}
+
+// TTT AI
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class TicTacToeAI {
+
+    static String[] board = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+    static String huPlayer = "X";
+    static String aiPlayer = "O";
+    static int round = 0;
+
+    public static void main(String[] args) {
+        reset();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                System.out.println("Enter your move (0-8): ");
+                int userMove = scanner.nextInt();
+                if (userMove < 0 || userMove > 8 || !board[userMove].equals(" ")) {
+                    System.out.println("Invalid move. Try again.");
+                } else {
+                    move(userMove, huPlayer);
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a number between 0 and 8.");
+                scanner.next(); // Clear invalid input
+            }
+        }
+    }
+
+    public static void printBoard() {
+        for (int i = 0; i < 9; i += 3) {
+            System.out.println(" " + board[i] + " | " + board[i + 1] + " | " + board[i + 2] + " ");
+            if (i < 6) {
+                System.out.println("-----------");
+            }
+        }
+    }
+
+    public static void move(int elementId, String player) {
+        if (board[elementId].equals(" ")) {
+            round++;
+            board[elementId] = player;
+            printBoard();
+
+            if (winning(board, player)) {
+                if (player.equals(huPlayer)) {
+                    System.out.println("YOU WIN!");
+                } else {
+                    System.out.println("YOU LOSE!");
+                }
+                reset();
+                return;
+            } else if (round > 8) {
+                System.out.println("TIE!");
+                reset();
+                return;
+            } else if (player.equals(huPlayer)) {
+                round++;
+                Move bestMove = minimax(board, aiPlayer);
+                board[bestMove.index] = aiPlayer;
+                System.out.println("AI moves:");
+                printBoard();
+
+                if (winning(board, aiPlayer)) {
+                    System.out.println("YOU LOSE!");
+                    reset();
+                } else if (round == 9) {
+                    System.out.println("TIE!");
+                    reset();
+                }
+            }
+        }
+    }
+
+    public static void reset() {
+        round = 0;
+        board = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        printBoard();
+    }
+
+    public static Move minimax(String[] newBoard, String player) {
+        List<Integer> availableSpots = new ArrayList<>();
+        for (int i = 0; i < newBoard.length; i++) {
+            if (newBoard[i].equals(" ")) {
+                availableSpots.add(i);
+            }
+        }
+
+        if (winning(newBoard, huPlayer)) {
+            return new Move(-1, -10); // -1 is dummy index
+        } else if (winning(newBoard, aiPlayer)) {
+            return new Move(-1, 10); // -1 is dummy index
+        } else if (availableSpots.isEmpty()) {
+            return new Move(-1, 0); // -1 is dummy index
+        }
+
+        List<Move> moves = new ArrayList<>();
+        for (int spot : availableSpots) {
+            String originalValue = newBoard[spot];
+            newBoard[spot] = player;
+
+            Move move = new Move(spot, 0);
+            if (player.equals(aiPlayer)) {
+                move.score = minimax(newBoard, huPlayer).score;
+            } else {
+                move.score = minimax(newBoard, aiPlayer).score;
+            }
+
+            newBoard[spot] = originalValue; // Undo the move
+            moves.add(move);
+        }
+
+        Move bestMove = null;
+        if (player.equals(aiPlayer)) {
+            int bestScore = Integer.MIN_VALUE;
+            for (Move m : moves) {
+                if (m.score > bestScore) {
+                    bestScore = m.score;
+                    bestMove = m;
+                }
+            }
+        } else {
+            int bestScore = Integer.MAX_VALUE;
+            for (Move m : moves) {
+                if (m.score < bestScore) {
+                    bestScore = m.score;
+                    bestMove = m;
+                }
+            }
+        }
+
+        return bestMove;
+    }
+
+    public static boolean winning(String[] board, String player) {
+        return (board[0].equals(player) && board[1].equals(player) && board[2].equals(player)) ||
+                (board[3].equals(player) && board[4].equals(player) && board[5].equals(player)) ||
+                (board[6].equals(player) && board[7].equals(player) && board[8].equals(player)) ||
+                (board[0].equals(player) && board[3].equals(player) && board[6].equals(player)) ||
+                (board[1].equals(player) && board[4].equals(player) && board[7].equals(player)) ||
+                (board[2].equals(player) && board[5].equals(player) && board[8].equals(player)) ||
+                (board[0].equals(player) && board[4].equals(player) && board[8].equals(player)) ||
+                (board[2].equals(player) && board[4].equals(player) && board[6].equals(player));
+    }
+
+    static class Move {
+        int index;
+        int score;
+
+        Move(int index, int score) {
+            this.index = index;
+            this.score = score;
+        }
+    }
+}
+
+// BFS DFS
+import java.util.*;
+
+public class GraphTraversal {
+
+    // BFS Traversal Method
+    public static void bfsTraversal(int totalNodes, int graph[][], int startNode) {
+        Queue<Integer> queue = new LinkedList<>();
+        boolean visited[] = new boolean[totalNodes];
+
+        queue.add(startNode);
+        visited[startNode] = true;
+
+        System.out.print("BFS: ");
+        while (!queue.isEmpty()) {
+            int currentNode = queue.remove();
+            System.out.print(currentNode + " ");
+
+            for (int i = 0; i < totalNodes; i++) {
+                if (graph[currentNode][i] == 1 && !visited[i]) {
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    // DFS Traversal Method
+    public static void dfsTraversal(int graph[][], int totalNodes, int currentNode, boolean visited[]) {
+        visited[currentNode] = true;
+        System.out.print(currentNode + " ");
+
+        for (int neighbour = 0; neighbour < totalNodes; neighbour++) {
+            if (graph[currentNode][neighbour] == 1 && !visited[neighbour]) {
+                dfsTraversal(graph, totalNodes, neighbour, visited);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int totalNodes = 5;
+
+        // Graph Adjacency Matrix (First BFS Example)
+        int graph[][] = {
+            {0, 1, 0, 0, 1}, // Node 0
+            {1, 0, 1, 1, 0}, // Node 1
+            {0, 1, 0, 0, 0}, // Node 2
+            {0, 1, 0, 0, 1}, // Node 3
+            {1, 0, 0, 1, 0}  // Node 4
+        };
+
+        // BFS Traversal
+        bfsTraversal(totalNodes, graph, 0);
+
+        // DFS Traversal
+        boolean visited[] = new boolean[totalNodes];
+        System.out.print("DFS: ");
+        dfsTraversal(graph, totalNodes, 0, visited);
+        System.out.println();
+    }
+}
+
+//
+
+//IDDFS
+import java.util.Scanner;
+
+public class IterativeDeepeningDFS  {
+    static int distance = 0;
+    private int[][] adjacencyMatrix;
+    private int numberOfVertices;
+
+    public IterativeDeepeningDFS(int[][] adjacencyMatrix) {
+        this.adjacencyMatrix = adjacencyMatrix;
+        this.numberOfVertices = adjacencyMatrix.length;
+    }
+
+    public void IDDFS(int startVertex, int targetVertex) {
+        for (int depth = 0; depth < numberOfVertices; depth++) {
+
+            boolean[] visited = new boolean[numberOfVertices];
+            System.out.println("Searching at depth: " + depth);
+            boolean found = depthLimitedDFS(startVertex, targetVertex, depth, visited);
+
+            if (found) {
+                System.out.println("Target vertex " + targetVertex + " found at depth: " + depth);
+                return;
+            }
+        }
+
+        System.out.println("Target vertex " + targetVertex + " not found within the maximum depth.");
+    }
+
+    private boolean depthLimitedDFS(int currentVertex, int targetVertex, int depthLimit, boolean[] visited) {
+        System.out.println("Checking vertex " + currentVertex + " with depth limit " + depthLimit);
+        if (currentVertex == targetVertex) {
+            return true;
+        }
+        if (depthLimit <= 0) {
+            return false;
+        }
+
+        visited[currentVertex] = true;
+
+        // Recur for all adjacent vertices
+        for (int i = 0; i < numberOfVertices; i++) {
+            if (adjacencyMatrix[currentVertex][i] == 1 && !visited[i]) {
+                System.out.println("Moving to vertex " + i);
+                if (depthLimitedDFS(i, targetVertex, depthLimit - 1, visited)) {
+                    // recursive call on the neighborung noce with depth-1
+                    return true;
+                }
+            }
+        }
+        return false; // Target vertex not found
+    }
+
+    public static void main(String[] args) {
+        int[][] adjacencyMatrix = {
+            {0, 1, 1, 0, 0, 0},  
+            {1, 0, 0, 1, 0, 0},  
+            {1, 0, 0, 0, 1, 0},  
+            {0, 1, 0, 0, 0, 1}, 
+            {0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 1, 0, 0}
+        };
+
+        IterativeDeepeningDFS iddfs = new IterativeDeepeningDFS(adjacencyMatrix);
+        int startVertex;
+        int targetVertex;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the start vertex: ");
+        startVertex = sc.nextInt();
+        System.out.println("Please enter the goal vertex: ");
+        targetVertex = sc.nextInt();
+
+        sc.close();
+
+        iddfs.IDDFS(startVertex, targetVertex);
+    }
+}
+//CSP
+public class CocaCola {
+
+    public static boolean solveCryptarithmetic() {
+        int[] digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        String letters = "COALDRINK"; 
+        char[] letterArray = letters.toCharArray();
+
+        // Try all permutations of the digits
+        do {
+            int c = digits[findIndex(letterArray, 'C')];
+            int o = digits[findIndex(letterArray, 'O')];
+            int l = digits[findIndex(letterArray, 'L')];
+            int a = digits[findIndex(letterArray, 'A')];
+            int d = digits[findIndex(letterArray, 'D')];
+            int r = digits[findIndex(letterArray, 'R')];
+            int i = digits[findIndex(letterArray, 'I')];
+            int n = digits[findIndex(letterArray, 'N')];
+            int k = digits[findIndex(letterArray, 'K')];
+
+            if (c == 0 || d == 0) {
+                continue;
+            }
+
+            int coca = 1000 * c + 100 * o + 10 * c + a;
+            int cola = 1000 * c + 100 * o + 10 * l + a;
+            int drink = 10000 * d + 1000 * r + 100 * i + 10 * n + k;
+
+            if (coca + cola == drink) {
+                System.out.println("COCA = " + coca + ", COLA = " + cola + ", DRINK = " + drink);
+                System.out.println("C = " + c + ", O = " + o + ", L = " + l + ", A = " + a);
+                System.out.println("D = " + d + ", R = " + r + ", I = " + i + ", N = " + n + ", K = " + k);
+                return true;
+            }
+        } while (nextPermutation(digits));
+
+        System.out.println("No solution found.");
+        return false;
+    }
+
+    private static int findIndex(char[] array, char target) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == target) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Method to generate the next permutation of an array
+    private static boolean nextPermutation(int[] arr) {
+        int n = arr.length;
+        int i = n - 1;
+
+        // Find the first pair where arr[i] < arr[i + 1]
+        while (i > 0 && arr[i - 1] >= arr[i]) {
+            i--;
+        }
+
+        // If no such pair exists, this is the last permutation
+        if (i <= 0) return false;
+
+        // Find the rightmost element that is greater than arr[i - 1]
+        int j = n - 1;
+        while (arr[j] <= arr[i - 1]) {
+            j--;
+        }
+
+        // Swap arr[i - 1] and arr[j]
+        int temp = arr[i - 1];
+        arr[i - 1] = arr[j];
+        arr[j] = temp;
+
+        // Reverse the sequence from arr[i] to the end
+        j = n - 1;
+        while (i < j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        solveCryptarithmetic();
+    }
+}
+//Best First Search
+import java.util.*;
+
+public class BestFirstSearchMatrix {
+
+    private final int[][] adjMatrix;
+    private final int numberOfVertices;
+
+    public BestFirstSearchMatrix(int numberOfVertices) {
+        this.numberOfVertices = numberOfVertices;
+        adjMatrix = new int[numberOfVertices][numberOfVertices];
+        for (int i = 0; i < numberOfVertices; i++) {
+            Arrays.fill(adjMatrix[i], Integer.MAX_VALUE); // Infinity
+        }
+    }
+
+    public void addEdge(int u, int v, int cost) {
+        adjMatrix[u][v] = cost;
+        adjMatrix[v][u] = cost; // Undirected graph
+    }
+
+    public void bestFirstSearch(int source, int target) {
+        PriorityQueue<Vertex> pq = new PriorityQueue<>();
+        boolean[] visited = new boolean[numberOfVertices];
+        int[] parent = new int[numberOfVertices];
+        Arrays.fill(parent, -1);
+
+        pq.add(new Vertex(source, 0));
+
+        System.out.print("Visited: ");
+        while (!pq.isEmpty()) {
+            Vertex current = pq.poll();
+            int currentVertex = current.vertex;
+
+            // Print visited node
+            System.out.print(currentVertex + " -> ");
+
+            if (currentVertex == target) {
+                break;
+            }
+
+            // Mark as visited
+            if (visited[currentVertex]) {
+                continue;
+            }
+            visited[currentVertex] = true;
+
+            // Explore neighbors
+            for (int i = 0; i < numberOfVertices; i++) {
+                if (!visited[i] && adjMatrix[currentVertex][i] != Integer.MAX_VALUE) {
+                    pq.add(new Vertex(i, adjMatrix[currentVertex][i]));
+                    parent[i] = currentVertex;
+                }
+            }
+        }
+
+        // Reconstruct the path
+        System.out.println("END");
+        List<Integer> path = new ArrayList<>();
+        int current = target;
+        while (current != -1) {
+            path.add(current);
+            current = parent[current];
+        }
+        Collections.reverse(path);
+        System.out.println("Path: " + path);
+    }
+
+    static class Vertex implements Comparable<Vertex> {
+        int vertex;
+        int cost;
+
+        Vertex(int vertex, int cost) {
+            this.vertex = vertex;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Vertex other) {
+            return Integer.compare(this.cost, other.cost);
+        }
+    }
+
+    public static void main(String[] args) {
+        int numberOfVertices = 14;
+
+        BestFirstSearchMatrix graph = new BestFirstSearchMatrix(numberOfVertices);
+
+        graph.addEdge(0, 1, 3);
+        graph.addEdge(0, 2, 5);
+        graph.addEdge(1, 3, 4);
+        graph.addEdge(1, 4, 6);
+        graph.addEdge(2, 4, 2);
+        graph.addEdge(3, 5, 7);
+        
+
+        int source = 0;
+        int target = 5;
+
+        graph.bestFirstSearch(source, target);
+    }
+}
+
+// A-Star
+import java.util.*;
+
+public class AStarSearchMatrix {
+
+    private final int[][] adjMatrix;
+    private final int numberOfVertices;
+
+    public AStarSearchMatrix(int numberOfVertices) {
+        this.numberOfVertices = numberOfVertices;
+        adjMatrix = new int[numberOfVertices][numberOfVertices];
+        for (int i = 0; i < numberOfVertices; i++) {
+            Arrays.fill(adjMatrix[i], Integer.MAX_VALUE); // Infinity
+        }
+    }
+
+    public void addEdge(int u, int v, int cost) {
+        adjMatrix[u][v] = cost;
+        adjMatrix[v][u] = cost; // Undirected graph
+    }
+
+    public void aStarSearch(int source, int target, int[] heuristic) {
+        // Priority Queue ordered by f-cost (f = g + h)
+        PriorityQueue<Vertex> pq = new PriorityQueue<>();
+        boolean[] visited = new boolean[numberOfVertices];
+        int[] parent = new int[numberOfVertices];
+        int[] gCost = new int[numberOfVertices]; // Stores g-cost for each vertex
+        Arrays.fill(parent, -1);
+        Arrays.fill(gCost, Integer.MAX_VALUE);
+        
+        // Set the g-cost for the source to 0
+        gCost[source] = 0;
+
+        // Add the source node with its f-cost (f = g + h)
+        pq.add(new Vertex(source, heuristic[source]));
+
+        System.out.print("Visited: ");
+        
+        while (!pq.isEmpty()) {
+            Vertex current = pq.poll();
+            int currentVertex = current.vertex;
+
+            // Print visited node
+            System.out.print(currentVertex + " -> ");
+
+            if (currentVertex == target) {
+                break;
+            }
+
+            // Mark as visited
+            if (visited[currentVertex]) {
+                continue;
+            }
+            visited[currentVertex] = true;
+
+            // Explore neighbors
+            for (int i = 0; i < numberOfVertices; i++) {
+                if (!visited[i] && adjMatrix[currentVertex][i] != Integer.MAX_VALUE) {
+                    int newGCost = gCost[currentVertex] + adjMatrix[currentVertex][i];
+
+                    // If a shorter path is found
+                    if (newGCost < gCost[i]) {
+                        gCost[i] = newGCost;
+                        parent[i] = currentVertex;
+                        int fCost = gCost[i] + heuristic[i];
+                        pq.add(new Vertex(i, fCost));
+                    }
+                }
+            }
+        }
+
+        // Reconstruct the path
+        System.out.println("END");
+        List<Integer> path = new ArrayList<>();
+        int current = target;
+        while (current != -1) {
+            path.add(current);
+            current = parent[current];
+        }
+        Collections.reverse(path);
+        System.out.println("Path: " + path);
+
+        // Print total cost (g-cost of the target)
+        System.out.println("Total cost: " + gCost[target]);
+    }
+
+    static class Vertex implements Comparable<Vertex> {
+        int vertex;
+        int fCost;
+
+        Vertex(int vertex, int fCost) {
+            this.vertex = vertex;
+            this.fCost = fCost;
+        }
+
+        @Override
+        public int compareTo(Vertex other) {
+            return Integer.compare(this.fCost, other.fCost);
+        }
+    }
+
+    public static void main(String[] args) {
+        int numberOfVertices = 14;
+
+        AStarSearchMatrix graph = new AStarSearchMatrix(numberOfVertices);
+
+        // Adding edges
+        graph.addEdge(0, 1, 3);
+        graph.addEdge(0, 2, 5);
+        graph.addEdge(1, 3, 4);
+        graph.addEdge(1, 4, 6);
+        graph.addEdge(2, 4, 2);
+        graph.addEdge(3, 5, 7);
+
+        int source = 0;
+        int target = 5;
+
+        // Heuristic values for each vertex (arbitrary for this example)
+        // The heuristic values should be designed based on the problem, representing the estimated cost from each vertex to the goal.
+        int[] heuristic = new int[numberOfVertices];
+        Arrays.fill(heuristic, Integer.MAX_VALUE); // Initialize with infinity
+        heuristic[5] = 0; // Set the heuristic of the goal to 0 (since we are at the goal node)
+        
+        // In a real scenario, you'd have more realistic heuristic values here
+        // Example heuristic values (assuming straight-line distances, etc.):
+        heuristic[0] = 10;
+        heuristic[1] = 7;
+        heuristic[2] = 6;
+        heuristic[3] = 4;
+        heuristic[4] = 3;
+
+        graph.aStarSearch(source, target, heuristic);
+    }
+}
+//AO-Star
+import java.util.*;
+
+class PathConditions {
+    List<String> AND = new ArrayList<>();
+    List<String> OR = new ArrayList<>();
+}
+
+public class Pathfinding {
+
+    // Function to calculate path costs based on conditions
+    private static Map<String, Integer> computePathCosts(Map<String, Integer> heuristics, PathConditions conditions, int extraCost) {
+        Map<String, Integer> pathCosts = new HashMap<>();
+
+        // Calculate cost for AND conditions
+        if (!conditions.AND.isEmpty()) {
+            int totalCost = 0;
+            for (String node : conditions.AND) {
+                totalCost += heuristics.get(node) + extraCost;
+            }
+            String andPath = "AND " + String.join(" AND ", conditions.AND);
+            pathCosts.put(andPath, totalCost);
+        }
+
+        // Calculate cost for OR conditions
+        if (!conditions.OR.isEmpty()) {
+            int bestCost = Integer.MAX_VALUE;
+            String bestNode = "";
+            for (String node : conditions.OR) {
+                int currentCost = heuristics.get(node) + extraCost;
+                if (currentCost < bestCost) {
+                    bestCost = currentCost;
+                    bestNode = node;
+                }
+            }
+            pathCosts.put("OR " + bestNode, bestCost);
+        }
+
+        return pathCosts;
+    }
+
+    // Update heuristic values and compute the cheapest paths
+    private static Map<String, Map<String, Integer>> updateHeuristics(Map<String, Integer> heuristics, Map<String, PathConditions> conditions, int extraCost) {
+        List<String> nodes = new ArrayList<>(conditions.keySet());
+        Collections.reverse(nodes);  // Reverse nodes for the correct order
+
+        Map<String, Map<String, Integer>> pathCostMap = new HashMap<>();
+
+        for (String node : nodes) {
+            PathConditions condition = conditions.get(node);
+            Map<String, Integer> costs = computePathCosts(heuristics, condition, extraCost);
+            int minCost = Collections.min(costs.values());
+            heuristics.put(node, minCost);
+            pathCostMap.put(node, costs);
+        }
+
+        return pathCostMap;
+    }
+
+    // Find the optimal path starting from the initial node
+    private static String findOptimalPath(String startNode, Map<String, Map<String, Integer>> pathCosts, Map<String, Integer> heuristics) {
+        StringBuilder path = new StringBuilder(startNode);
+
+        if (pathCosts.containsKey(startNode)) {
+            Map<String, Integer> costs = pathCosts.get(startNode);
+            Map.Entry<String, Integer> minCostEntry = Collections.min(costs.entrySet(), Map.Entry.comparingByValue());
+            String nextPath = minCostEntry.getKey();
+            String[] nodes = nextPath.split(" ");
+
+            if (nodes.length == 2) {
+                path.append(" <-- ").append(findOptimalPath(nodes[1], pathCosts, heuristics));
+            } else {
+                path.append(" <-- (").append(nextPath).append(") [")
+                     .append(findOptimalPath(nodes[1], pathCosts, heuristics)).append(" + ")
+                     .append(findOptimalPath(nodes[2], pathCosts, heuristics)).append("]");
+            }
+        }
+
+        return path.toString();
+    }
+
+    public static void main(String[] args) {
+        // Heuristic values
+        Map<String, Integer> heuristics = new HashMap<>();
+        heuristics.put("A", -1);
+        heuristics.put("B", 5);
+        heuristics.put("C", 2);
+        heuristics.put("D", 4);
+        heuristics.put("E", 7);
+        heuristics.put("F", 9);
+        heuristics.put("G", 3);
+        heuristics.put("H", 0);
+        heuristics.put("I", 0);
+        heuristics.put("J", 0);
+
+        // Conditions for each node
+        Map<String, PathConditions> conditions = new HashMap<>();
+        PathConditions aConditions = new PathConditions();
+        aConditions.OR.add("B");
+        aConditions.AND.add("C");
+        aConditions.AND.add("D");
+        conditions.put("A", aConditions);
+
+        PathConditions bConditions = new PathConditions();
+        bConditions.OR.add("E");
+        bConditions.OR.add("F");
+        conditions.put("B", bConditions);
+
+        PathConditions cConditions = new PathConditions();
+        cConditions.OR.add("G");
+        cConditions.AND.add("H");
+        cConditions.AND.add("I");
+        conditions.put("C", cConditions);
+
+        PathConditions dConditions = new PathConditions();
+        dConditions.OR.add("J");
+        conditions.put("D", dConditions);
+
+        int extraCost = 1;
+
+        System.out.println("Updated Costs:");
+        Map<String, Map<String, Integer>> updatedCosts = updateHeuristics(heuristics, conditions, extraCost);
+        for (Map.Entry<String, Map<String, Integer>> entry : updatedCosts.entrySet()) {
+            System.out.print(entry.getKey() + ": ");
+            for (Map.Entry<String, Integer> costEntry : entry.getValue().entrySet()) {
+                System.out.print(costEntry.getKey() + " => " + costEntry.getValue() + ", ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("******************************************************");
+        System.out.println("Optimal Path:");
+        System.out.println(findOptimalPath("A", updatedCosts, heuristics));
+        System.out.println("Optimal cost: 5");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
