@@ -1304,6 +1304,198 @@ main :-
 
 
 
+//Expert System
+
+
+:- initialization(main).
+
+% Facts about symptoms and diseases
+symptom(fever).
+symptom(cough).
+symptom(fatigue).
+symptom(headache).
+symptom(sore_throat).
+symptom(body_ache).
+symptom(runny_nose).
+symptom(difficulty_breathing).
+
+% Disease rules with symptoms - Modified to be less strict
+disease(flu) :-
+    has_symptom(fever),
+    has_symptom(cough).
+
+disease(common_cold) :-
+    has_symptom(runny_nose),
+    has_symptom(sore_throat),
+    has_symptom(cough).
+
+disease(covid19) :-
+    has_symptom(fever),
+    has_symptom(cough),
+    (has_symptom(difficulty_breathing) ; has_symptom(fatigue)).
+
+disease(migraine) :-
+    has_symptom(headache),
+    (has_symptom(fatigue) ; has_symptom(sore_throat)).
+
+% Hardcoded patient symptoms
+has_symptom(runny_nose).
+has_symptom(fever).
+has_symptom(cough).
+has_symptom(difficulty_breathing).
+
+% Helper predicates for diagnosis
+diagnose :-
+    disease(Disease),
+    format('Based on the symptoms, the patient might have ~w.~n', [Disease]),
+    fail.
+diagnose.
+
+% Display all symptoms
+list_symptoms :-
+    write('Current symptoms:'), nl,
+    has_symptom(Symptom),
+    format('- ~w~n', [Symptom]),
+    fail.
+list_symptoms.
+
+% Main program
+main :-
+    write('Disease Prediction Expert System'), nl,
+    write('============================'), nl,
+    nl,
+    write('Patient Symptoms:'), nl,
+    list_symptoms,
+    nl,
+    write('Possible Diagnoses:'), nl,
+    diagnose,
+    nl.
+
+
+
+:- initialization(main).
+
+% Car to company mapping
+car_to_company(crv, honda).
+car_to_company(wrv, honda).
+car_to_company(city, honda).
+car_to_company(jazz, honda).
+car_to_company(santro, hyundai).
+car_to_company(verna, hyundai).   
+car_to_company(creta, hyundai).
+
+% Car type mapping
+type(city, sedan).      
+type(jazz, hatchback).
+type(crv, suv).
+type(wrv, compact_suv).
+type(santro, hatchback).
+type(verna, sedan).     
+type(creta, compact_suv).
+
+% Car engine capacity mapping
+cc(city, 1200).
+cc(jazz, 1200).
+cc(crv, 2000).
+cc(wrv, 1700).
+cc(santro, 1000).
+cc(verna, 1400).
+cc(creta, 1700).
+
+% Car to country mapping 
+country(city, japan).      
+country(jazz, japan).
+country(crv, japan).
+country(wrv, japan).
+country(santro, korea).
+country(verna, korea).    
+country(creta, korea).
+
+% Number of powered wheels
+power_wheels(city, 2).      
+power_wheels(jazz, 2).
+power_wheels(crv, 4).
+power_wheels(wrv, 4).
+power_wheels(santro, 2).
+power_wheels(verna, 2).     
+power_wheels(creta, 4).
+
+% Price
+price(city, 10).      
+price(jazz, 8).
+price(crv, 15).
+price(wrv, 13).
+price(santro, 7).
+price(verna, 10).     
+price(creta, 14).
+
+% Filter cars predicate
+filter_cars(Car, Company, Type, CC, Country, Power_wheels, Price) :-
+    (Company = -1; car_to_company(Car, Company)),
+    (Type = -1; type(Car, Type)),
+    (CC = -1; cc(Car, CC)),
+    (Country = -1; country(Car, Country)),
+    (Power_wheels = -1; power_wheels(Car, Power_wheels)),
+    (Price = -1; price(Car, Price)).
+
+main :-
+    % Using car_to_company
+    write('1. Finding Honda cars:\n'),
+    forall(car_to_company(Car, honda),
+           format('~w is made by Honda~n', [Car])),
+    nl,
+    
+    % Using type
+    write('2. Finding all sedans:\n'),
+    forall(type(Car, sedan),
+           format('~w is a sedan~n', [Car])),
+    nl,
+    
+    % Using cc
+    write('3. Finding cars with 1200cc engine:\n'),
+    forall(cc(Car, 1200),
+           format('~w has a 1200cc engine~n', [Car])),
+    nl,
+    
+    % Using country
+    write('4. Finding Korean cars:\n'),
+    forall(country(Car, korea),
+           format('~w is made in Korea~n', [Car])),
+    nl,
+    
+    % Using power_wheels
+    write('5. Finding 4-wheel drive cars:\n'),
+    forall(power_wheels(Car, 4),
+           format('~w has 4-wheel drive~n', [Car])),
+    nl,
+    
+    % Using price
+    write('6. Finding cars priced at 10 lakhs:\n'),
+    forall(price(Car, 10),
+           format('~w costs 10 lakhs~n', [Car])),
+    nl,
+    
+    % Using filter_cars (combining multiple criteria)
+    write('7. Using filter_cars to find Japanese sedans:\n'),
+    forall(filter_cars(Car, -1, sedan, -1, japan, -1, -1),
+           format('~w is a Japanese sedan~n', [Car])),
+    nl,
+    
+    halt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
