@@ -1,5 +1,4 @@
 // TTT Non AI
-
 import java.util.Scanner;
 
 public class Tut_1_tictactoe_nonAI {
@@ -36,7 +35,7 @@ public class Tut_1_tictactoe_nonAI {
             System.out.println("Computer wins!");
             brk=1;
             return 1;
-        }
+        } 
         return 0;
     }
 
@@ -255,8 +254,12 @@ public class Tut_1_tictactoe_nonAI {
 
 
 
-// TTT AI
 
+
+
+
+
+// TTT AI
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -426,6 +429,13 @@ public class TicTacToeAI {
 
 
 
+
+
+
+
+
+
+
 // BFS DFS
 import java.util.*;
 
@@ -467,15 +477,17 @@ public class GraphTraversal {
     }
 
     public static void main(String[] args) {
-        int totalNodes = 5;
+        int totalNodes = 7;
 
         // Graph Adjacency Matrix (First BFS Example)
         int graph[][] = {
-            {0, 1, 0, 0, 1}, // Node 0
-            {1, 0, 1, 1, 0}, // Node 1
-            {0, 1, 0, 0, 0}, // Node 2
-            {0, 1, 0, 0, 1}, // Node 3
-            {1, 0, 0, 1, 0}  // Node 4
+           {0, 1, 1, 0, 0, 0, 0}, // Node 0
+            {1, 0, 0, 1, 1, 0, 0}, // Node 1
+            {1, 0, 0, 0, 0, 1, 1}, // Node 2
+            {0, 1, 0, 0, 0, 0, 0}, // Node 3
+            {0, 1, 0, 0, 0, 0, 0},  // Node 4
+            {0, 0, 1, 0, 0, 0, 0},  // Node 4
+            {0, 0, 1, 0, 0, 0, 0},  // Node 4
         };
 
         // BFS Traversal
@@ -489,7 +501,6 @@ public class GraphTraversal {
     }
 }
 
-//
 
 
 
@@ -581,6 +592,7 @@ public class IterativeDeepeningDFS  {
         iddfs.IDDFS(startVertex, targetVertex);
     }
 }
+
 
 
 
@@ -694,8 +706,19 @@ public class CocaCola {
 
 
 
-//Best First Search
 
+
+
+
+
+
+
+
+
+
+
+
+//Best First Search
 import java.util.*;
 
 public class BestFirstSearchMatrix {
@@ -779,7 +802,7 @@ public class BestFirstSearchMatrix {
     }
 
     public static void main(String[] args) {
-        int numberOfVertices = 14;
+        int numberOfVertices = 6;
 
         BestFirstSearchMatrix graph = new BestFirstSearchMatrix(numberOfVertices);
 
@@ -811,8 +834,6 @@ public class BestFirstSearchMatrix {
 
 
 // A-Star
-
-
 import java.util.*;
 
 public class AStarSearchMatrix {
@@ -914,7 +935,7 @@ public class AStarSearchMatrix {
     }
 
     public static void main(String[] args) {
-        int numberOfVertices = 14;
+        int numberOfVertices = 6;
 
         AStarSearchMatrix graph = new AStarSearchMatrix(numberOfVertices);
 
@@ -929,14 +950,12 @@ public class AStarSearchMatrix {
         int source = 0;
         int target = 5;
 
-        // Heuristic values for each vertex (arbitrary for this example)
-        // The heuristic values should be designed based on the problem, representing the estimated cost from each vertex to the goal.
+        
         int[] heuristic = new int[numberOfVertices];
         Arrays.fill(heuristic, Integer.MAX_VALUE); // Initialize with infinity
         heuristic[5] = 0; // Set the heuristic of the goal to 0 (since we are at the goal node)
         
-        // In a real scenario, you'd have more realistic heuristic values here
-        // Example heuristic values (assuming straight-line distances, etc.):
+    
         heuristic[0] = 10;
         heuristic[1] = 7;
         heuristic[2] = 6;
@@ -956,8 +975,12 @@ public class AStarSearchMatrix {
 
 
 
-//AO-Star
 
+
+
+
+
+//AO-Star
 import java.util.*;
 
 class PathConditions {
@@ -1102,6 +1125,16 @@ public class Pathfinding {
 
 
 
+
+
+
+
+
+
+
+
+
+//Family Tree
 //Family Tree
 
 :- initialization(main).
@@ -1268,7 +1301,21 @@ main :-
 
 
 
-// Factorial and Fibonnachi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Factorial and Fibonacci
 % Factorial implementation
 factorial(0, 1).
 factorial(N, Result) :-
@@ -1304,12 +1351,27 @@ main :-
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Expert System
 
 
 :- initialization(main).
 
-% Facts about symptoms and diseases
+% Facts about symptoms
 symptom(fever).
 symptom(cough).
 symptom(fatigue).
@@ -1318,27 +1380,61 @@ symptom(sore_throat).
 symptom(body_ache).
 symptom(runny_nose).
 symptom(difficulty_breathing).
+symptom(chest_pain).
+symptom(sore_muscles).
+symptom(nausea).
+symptom(vomiting).
+symptom(loss_of_taste).
+symptom(loss_of_smell).
+symptom(rash).
+symptom(diarrhea).
+symptom(congestion).
+symptom(wheezing).
+symptom(fainting).
 
-% Disease rules with symptoms - Modified to be less strict
+% Disease rules with symptoms
 disease(flu) :-
     has_symptom(fever),
-    has_symptom(cough).
+    has_symptom(cough),
+    (has_symptom(sore_throat) ; has_symptom(fatigue)).
 
 disease(common_cold) :-
     has_symptom(runny_nose),
     has_symptom(sore_throat),
-    has_symptom(cough).
+    has_symptom(cough),
+    \+ has_symptom(fever).
 
 disease(covid19) :-
     has_symptom(fever),
     has_symptom(cough),
-    (has_symptom(difficulty_breathing) ; has_symptom(fatigue)).
+    (has_symptom(difficulty_breathing) ; has_symptom(fatigue) ; has_symptom(loss_of_taste)).
 
 disease(migraine) :-
     has_symptom(headache),
-    (has_symptom(fatigue) ; has_symptom(sore_throat)).
+    (has_symptom(fatigue) ; has_symptom(nausea)).
 
-% Hardcoded patient symptoms
+disease(pneumonia) :-
+    has_symptom(fever),
+    has_symptom(cough),
+    has_symptom(difficulty_breathing),
+    has_symptom(chest_pain).
+
+disease(gastritis) :-
+    has_symptom(nausea),
+    has_symptom(vomiting),
+    has_symptom(body_ache).
+
+disease(allergic_reaction) :-
+    has_symptom(rash),
+    has_symptom(sore_throat),
+    (has_symptom(congestion) ; has_symptom(wheezing)).
+
+disease(cold_sore) :-
+    has_symptom(sore_throat),
+    has_symptom(body_ache),
+    has_symptom(fever).
+
+% Hardcoded patient symptoms for testing
 has_symptom(runny_nose).
 has_symptom(fever).
 has_symptom(cough).
@@ -1348,8 +1444,34 @@ has_symptom(difficulty_breathing).
 diagnose :-
     disease(Disease),
     format('Based on the symptoms, the patient might have ~w.~n', [Disease]),
+    treatment(Disease),
     fail.
 diagnose.
+
+% Provide treatment advice based on the disease
+treatment(flu) :-
+    write('Treatment for Flu: Rest, hydration, and over-the-counter medications for fever and pain.\n').
+
+treatment(common_cold) :-
+    write('Treatment for Common Cold: Stay hydrated, rest, use nasal decongestants, and take pain relievers.\n').
+
+treatment(covid19) :-
+    write('Treatment for COVID-19: Rest, hydration, antiviral drugs if prescribed, and monitoring of breathing.\n').
+
+treatment(migraine) :-
+    write('Treatment for Migraine: Pain relievers, staying in a dark and quiet environment, and possible anti-nausea medications.\n').
+
+treatment(pneumonia) :-
+    write('Treatment for Pneumonia: Antibiotics (if bacterial), oxygen therapy, and rest.\n').
+
+treatment(gastritis) :-
+    write('Treatment for Gastritis: Antacids, proton pump inhibitors, and avoiding irritants like alcohol or spicy foods.\n').
+
+treatment(allergic_reaction) :-
+    write('Treatment for Allergic Reaction: Antihistamines and avoiding allergens.\n').
+
+treatment(cold_sore) :-
+    write('Treatment for Cold Sore: Antiviral creams and medications, along with rest.\n').
 
 % Display all symptoms
 list_symptoms :-
@@ -1359,6 +1481,7 @@ list_symptoms :-
     fail.
 list_symptoms.
 
+
 % Main program
 main :-
     write('Disease Prediction Expert System'), nl,
@@ -1367,9 +1490,13 @@ main :-
     write('Patient Symptoms:'), nl,
     list_symptoms,
     nl,
-    write('Possible Diagnoses:'), nl,
+    write('Possible Diagnoses and Treatments:'), nl,
     diagnose,
     nl.
+
+
+
+
 
 
 
@@ -1482,12 +1609,6 @@ main :-
     nl,
     
     halt.
-
-
-
-
-
-
 
 
 
